@@ -18,6 +18,11 @@ export const RecipeProvider = (props) => {
             .then(setRecipes)
     }
 
+    const getRecipeById = (id) => {
+        return fetch(`http://localhost:8088/recipes/${id}`)
+            .then(res => res.json())
+    }
+
     const addRecipe = (recipe) => {
         return fetch("http://localhost:8088/recipes", {
             method: "POST",
@@ -25,6 +30,24 @@ export const RecipeProvider = (props) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(recipe)
+        })
+            .then(getRecipes)
+    }
+
+    const updateRecipe = recipe => {
+        return fetch(`http://localhost:8088/recipes/${recipe.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(recipe)
+        })
+            .then(getRecipes)
+    }
+
+    const deleteRecipe = (id) => {
+        return fetch(`http://localhost:8088/recipes/${id}`, {
+            method: "DELETE"
         })
             .then(getRecipes)
     }
@@ -37,7 +60,7 @@ export const RecipeProvider = (props) => {
     */
     return (
         <RecipeContext.Provider value={{
-            recipes, addRecipe, getRecipes
+            recipes, addRecipe, getRecipes, updateRecipe, deleteRecipe, getRecipeById
         }}>
             {props.children}
         </RecipeContext.Provider>

@@ -25,15 +25,14 @@ export const RecipeForm = (props) => {
        getRecipes()
     }, [])
 
-    const constructNewRecipe = (props) => {
+    const constructNewRecipe = () => {
         /*
             The `location` and `animal` variables below are
             the references attached to the input fields. You
             can't just ask for the `.value` property directly,
             but rather `.current.value` now in React.
         */
-        // const locationId = parseInt(location.current.value)
-        // const animalId = parseInt(animal.current.value)
+      
         console.log(directions.current.value)
         if (ingredients === "") {
             window.alert("Please enter ingredients")
@@ -43,7 +42,7 @@ export const RecipeForm = (props) => {
                 ingredients: ingredients.current.value,
                 directions: directions.current.value
             })
-            .then(() => props.history.push("/"))
+            .then(() => props.history.push("/recipes"))
         }
     }
 
