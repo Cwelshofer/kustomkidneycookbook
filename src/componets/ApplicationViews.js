@@ -21,6 +21,9 @@ export const ApplicationViews = (props) => {
                     props => <RecipeDetails {...props} />
                 } />
                 
+                <Route path="/recipes/edit/:recipeId(\d+)" render={
+                            props => <RecipeForm {...props} />
+                        } />
 
             </RecipeProvider>
 
@@ -38,6 +41,13 @@ export const ApplicationViews = (props) => {
                 }} />
 
             </RecipeProvider>
+
+            <Route path="/logout" render={
+                (props) => {
+                    localStorage.removeItem("recipe_customer")
+                    props.history.push("/login")
+                }
+            } />
 
             <RecipeProvider>
                 {/* Render the location list when http://localhost:3000/*/}

@@ -12,7 +12,7 @@ export const DietForm = (props) => {
             <h2 className="recipeForm__title">Intoduction to Kidney Renal Diet</h2>
             <fieldset>
                 <div className="form-group">
-                    The kidney diet is a very low sodium diet to follow. It is a very limiting diet 
+                    The kidney diet is a very low sodium diet to follow. It is a very limiting diet but is not too bad once you get used to it. 
                 </div>
             </fieldset>
             <fieldset>

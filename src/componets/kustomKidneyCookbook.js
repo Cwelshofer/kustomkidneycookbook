@@ -9,7 +9,7 @@ import "./kustomKidneyCookbook.css"
 export const Kustom = () => (
     <>
         <Route render={() => {
-            if (localStorage.getItem("Cookbook_customer")) {
+            if (localStorage.getItem("recipe_customer")) {
                 return (
                     <>
                         <Route render={props => <NavBar {...props} />} />

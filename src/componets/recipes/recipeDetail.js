@@ -11,7 +11,7 @@ export const RecipeDetails = (props) => {
         console.log(props)
         const recipeId = parseInt(props.match.params.recipeId)
         console.log(recipeId)
-        debugger
+    
         getRecipeById(recipeId)
 
             .then(setRecipe)
