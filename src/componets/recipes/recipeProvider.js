@@ -52,6 +52,20 @@ export const RecipeProvider = (props) => {
             .then(getRecipes)
     }
 
+     const addRecipeComment = (comments) => {
+    
+        return fetch(`http://localhost:8088/tasks/${ comments }`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                complete: true
+                }),
+        })
+        .then(getRecipes)
+    }
+
     /*
         You return a context provider which has the
         `locations` state, the `addLocation` function,
@@ -60,7 +74,7 @@ export const RecipeProvider = (props) => {
     */
     return (
         <RecipeContext.Provider value={{
-            recipes, addRecipe, getRecipes, updateRecipe, deleteRecipe, getRecipeById
+            recipes, addRecipe, getRecipes, updateRecipe, deleteRecipe, getRecipeById, addRecipeComment
         }}>
             {props.children}
         </RecipeContext.Provider>

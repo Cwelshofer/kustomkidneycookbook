@@ -7,14 +7,24 @@ import { FriendList } from "./friends/friendList"
 import { RecipeForm } from "./recipes/recipeForm"
 import { DietForm } from "./recipes/dietForm"
 import { RecipeDetails } from "./recipes/recipeDetail"
+import { RecipePage } from "./recipes/recipePage"
+
 
 export const ApplicationViews = (props) => {
     return (
         <>
             <RecipeProvider>
+                
+            
                 {/* Render the location list when http://localhost:3000/recipes */}
+
+                <Route path="/recipes" render={
+                    props => <RecipePage {...props} />
+                } />
+
                 <Route exact path="/recipes" render={(props) => {
-                            return <RecipeList history={props.history} />
+                            return  <RecipeList history={props.history} />
+                            
                         }} />
 
                 <Route path="/recipes/:recipeId(\d+)" render={
@@ -23,14 +33,17 @@ export const ApplicationViews = (props) => {
                 
                 <Route path="/recipes/edit/:recipeId(\d+)" render={
                             props => <RecipeForm {...props} />
+                    
                         } />
-
+                
+        
             </RecipeProvider>
 
             <FriendProvider>
                 {/* Render the location list when http://localhost:3000/friends */}
                 <Route exact path="/friends">
                     <FriendList />
+                    
                 </Route>
             </FriendProvider>
 
@@ -38,6 +51,7 @@ export const ApplicationViews = (props) => {
                 {/* Render the location list when http://localhost:3000/addRecipe */}
                 <Route exact path="/addRecipe" render={(props) => {
                     return <RecipeForm {...props} />
+                    
                 }} />
 
             </RecipeProvider>

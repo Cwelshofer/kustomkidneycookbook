@@ -1,15 +1,17 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext, useState, useEffect, Component } from "react"
 import { RecipeContext } from "./recipeProvider"
 
 
 
 export const RecipeForm = (props) => {
-    
+
     // Use the required context providers for data
     const { addRecipe, recipes, updateRecipe, getRecipes } = useContext(RecipeContext)
 
     // Component state
     const [recipe, setRecipe] = useState({})
+    const [image, setImage] = useState('')
+    const [loading, setLoading] = useState(false)
 
     // Is there a a URL parameter??
     const editMode = props.match.params.hasOwnProperty("recipeId")  // true or false
@@ -62,7 +64,9 @@ export const RecipeForm = (props) => {
                     id: recipe.id,
                     name: recipe.name,
                     ingredients: recipe.ingredients,
-                    directions: recipe.directions
+                    directions: recipe.directions,
+                    source: recipe.sources,
+                    image: image
                 })
                     .then(() => props.history.push("/recipes"))
             } else {
@@ -70,58 +74,124 @@ export const RecipeForm = (props) => {
                 addRecipe({
                     name: recipe.name,
                     ingredients: recipe.ingredients,
-                    directions: recipe.directions
+                    directions: recipe.directions,
+                    source: recipe.sources,
+                    image: image
                 })
                     .then(() => props.history.push("/recipes"))
             }
+
+              
         }
     }
 
-return (
-                    
-                    <form className="recipeForm">
-                        <h2 className="recipeForm__title">{editMode ? "Update Recipe" : "New Recipe"}</h2>
-                        <fieldset>
-                            <div className="form-group">
-                                <label htmlFor="name">Recipe name: </label>
-                                <input type="text" name="name" required autoFocus className="form-control"
-                                    placeholder="Recipe name"
-                                    defaultValue={recipe.name}
-                                    onChange={handleControlledInputChange}
-                                />
-                            </div>
-                        </fieldset>
-                        <fieldset>
-                            <div className="form-group">
-                                <label htmlFor="ingredients">Recipe ingredients: </label>
-                                <input type="text" name="ingredients" required className="form-control"
-                                    placeholder="Recipe ingredients"
-                                    defaultValue={recipe.ingredients}
-                                    onChange={handleControlledInputChange}
-                                />
-                            </div>
-                        </fieldset>
-                        <fieldset>
-                            <div className="form-group">
-                                <label htmlFor="directions">directions: </label>
-                                <input type="text" name="directions" required className="form-control"
-                                    value={recipe.directions}
-                                    onChange={handleControlledInputChange}
-                                    />
-                            </div>
-                        </fieldset>
-
-                        <button type="submit"
-                            onClick={evt => {
-                                evt.preventDefault()
-                                constructNewRecipe()
-                            }}
-                            className="btn btn-primary">
-                            {editMode ? "Save Updates" : "Save Recipe"}
-                        </button>
-                    </form>
-                )
+    const uploadImage = async e => {
+        debugger
+        const files = e.target.files 
+        const data = new FormData()
+        data.append('file' ,files[0])
+        data.append('upload_preset', 'kidneycookbook')
+        setLoading(true)
+        const res = await fetch(
+            'https://api.cloudinary.com/v1_1/cwelshofer/image/upload',
+            {
+                method: 'POST',
+                body: data
             }
+
+        )
+        const file = await res.json()
+        setImage(file.secure_url)
+        setLoading(false)
         
-    
-    
+    }
+    console.log(image)
+
+    return (
+
+        <form className="recipeForm">
+            <h2 className="recipeForm__title">{editMode ? "Update Creation" : "New Recipe"}</h2>
+            <fieldset>
+                {/* if in edit mode, populate the image at top of form otherwise populate with image upload field */}
+                {editMode 
+                ? (<div className="creation__image">
+                    <img src={recipe.image} alt={recipe.name} style={{width: '300px'}} />
+                </div>) : (
+            
+                <div className="form-group">
+                    <label htmlFor="name"></label>
+                    <input type="text" name="name" required autoFocus className="form-control" className="recipeForm"
+                        placeholder="Recipe name"
+                        defaultValue={recipe.name}
+                        onChange={handleControlledInputChange}
+                    />
+                </div>
+                )}
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="ingredients"> </label>
+                    <input type="text" name="ingredients" required className="form-control" className="ingredientForm"
+                        placeholder="Recipe ingredients"
+                        defaultValue={recipe.ingredients}
+                        onChange={handleControlledInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="directions"></label>
+                    <input type="text" name="directions" required className="form-control" className="directionForm"
+                        placeholder="Recipe directions"
+                        value={recipe.directions}
+                        onChange={handleControlledInputChange}
+                    />
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="sources"></label>
+                    <input type="text" name="sources" required className="form-control" className="sourceForm"
+                        placeholder="Recipe Source"
+                         defaultValue={recipe.source}
+                        onChange={handleControlledInputChange}
+                    />
+                </div>
+            </fieldset>
+
+            
+            <div className= "App">
+            <label htmlFor="creationImage"> Image: </label>
+                    <input type="file" 
+                            name="file" 
+                            id="creationImage" 
+                            required autoFocus 
+                            className="form-control" 
+                            placeholder="Upload an image"
+                            onChange={uploadImage} />
+                            {loading ? (
+                                <h3>Loading...</h3>
+                            ) : (
+                                <img src={image} style={{width: '300px'}} alt="" />
+                               
+                            )}
+                            
+            </div>
+            
+
+
+            <button type="submit"
+                onClick={evt => {
+                    evt.preventDefault()
+                    constructNewRecipe()
+                }}
+                className="submitButton">
+                {editMode ? "Save Updates" : "Save Recipe"}
+            </button>
+        </form>
+                
+    )
+}
+
+
