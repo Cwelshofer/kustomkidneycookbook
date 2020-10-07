@@ -8,6 +8,10 @@ import { RecipeForm } from "./recipes/recipeForm"
 import { DietForm } from "./recipes/dietForm"
 import { RecipeDetails } from "./recipes/recipeDetail"
 import { RecipePage } from "./recipes/recipePage"
+import { MessageProvider } from "./messages/messageProvider.js"
+import { MessageForm } from "./messages/messageForm.js"
+import { MessageList } from "./messages/messageList"
+
 
 
 export const ApplicationViews = (props) => {
@@ -62,6 +66,13 @@ export const ApplicationViews = (props) => {
                     props.history.push("/login")
                 }
             } />
+            <MessageProvider>
+                {/* Render the Message list when http://localhost:3000/*/}
+                <Route exact path="/messages">
+                <MessageList />
+                <MessageForm />
+                </Route>
+            </MessageProvider>
 
             <RecipeProvider>
                 {/* Render the location list when http://localhost:3000/*/}

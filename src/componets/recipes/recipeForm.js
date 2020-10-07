@@ -119,6 +119,12 @@ export const RecipeForm = (props) => {
                 </div>) : (
             
                 <div className="form-group">
+
+                </div>
+                )}
+            </fieldset>
+            <fieldset>
+            <div className="form-group">
                     <label htmlFor="name"></label>
                     <input type="text" name="name" required autoFocus className="form-control" className="recipeForm"
                         placeholder="Recipe name"
@@ -126,9 +132,7 @@ export const RecipeForm = (props) => {
                         onChange={handleControlledInputChange}
                     />
                 </div>
-                )}
-            </fieldset>
-            <fieldset>
+                <br></br>
                 <div className="form-group">
                     <label htmlFor="ingredients"> </label>
                     <input type="text" name="ingredients" required className="form-control" className="ingredientForm"

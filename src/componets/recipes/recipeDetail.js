@@ -36,7 +36,6 @@ export const RecipeDetails = (props) => {
             <br></br>
             <div className="recipe__direction">Directions: {recipe.directions}</div>
             <br></br>
-            <div className="recipe__comments">Comments: {recipe.comments}</div>
             <br></br>
             <div className="recipe__source">Source: {recipe.source}</div>
             

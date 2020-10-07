@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react"
 import { MessageContext } from "./messageProvider"
-import { Message } from "./message"
+import { Message } from "./messages"
 import "./message.css"
 
 export const MessageList = () => {

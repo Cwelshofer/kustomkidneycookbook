@@ -11,6 +11,10 @@ export const DietForm = (props) => {
     return (
         <form className="RecipeForm">
             <h2 className="recipeForm__title">Intoduction to Kidney Renal Diet</h2>
+            <div className="recipeTitle">
+                <img src={require('./kidney-diet-heart2.jpg')} alt="recipeTitleImage"></img>
+            </div>
+
             <fieldset>
                 <div className="form-group">
                     The kidney diet is a very strict diet to follow. It is a very limiting diet but is not too bad once you get used to it. It requires you to limit the amount of fluids that you

@@ -28,6 +28,7 @@ export const RecipeList = () => {
 
     return (
         <div className="recipes">
+            <img src={require('./heart.jpg')} alt="recipeTitleImage" className="heartImage" ></img>
         {
             recipes.map(rec => <Recipe key={rec.id} recipe={rec} />)
         }

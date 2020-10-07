@@ -1,11 +1,10 @@
-import React from "react"
-import "./message.css"
-import { Link } from "react-router-dom"
+// import React from "react"
+// import "./message.css"
 
-export const Message = ({ message }) => (
-    <section className="message">
-    <h3 className="message__name">
-            { message.name }
-    </h3>
-</section>
-)
+// export const Message = ({ message, friend }) => (
+//     <section className="message">
+//         <div className="message__name">
+//             <div className="arrow bottom right"> </div>
+//             {message.message} from: {friend.name}</div>
+//     </section>
+// )

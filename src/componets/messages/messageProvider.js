@@ -24,14 +24,14 @@ export const MessageProvider = (props) => {
     }
 
     const addMessage = (message) => {
-        return fetch("http://localhost:8088/recipes", {
+        return fetch("http://localhost:8088/messages", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(message)
         })
-            .then(addMessage)
+            .then(getMessages)
     }
 
     const updateMessage = message => {
@@ -59,10 +59,10 @@ export const MessageProvider = (props) => {
         allows any child elements to access them.
     */
     return (
-        <RecipeContext.Provider value={{
+        <MessageContext.Provider value={{
             messages, addMessage, getMessages, updateMessage, deleteMessage, getMessageById
         }}>
             {props.children}
-        </RecipeContext.Provider>
+        </MessageContext.Provider>
     )
 }
